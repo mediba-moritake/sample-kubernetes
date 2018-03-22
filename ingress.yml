@@ -1,0 +1,10 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: sample-k8s
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  backend:
+    serviceName: sample-k8s
+    servicePort: 8080

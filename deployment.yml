@@ -1,0 +1,32 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: sample-k8s
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: sample-k8s
+    spec:
+      containers:
+        - name: sample-nginx
+          image: "sample/nginx:1.0"
+          imagePullPolicy: IfNotPresent
+          ports:
+          - containerPort: 8080
+          volumeMounts:
+          - name: web-root
+            mountPath: /docker
+        - name: sample-php
+          image: "sample/php:1.0"
+          imagePullPolicy: IfNotPresent
+          ports:
+          - containerPort: 9000
+          volumeMounts:
+          - name: web-root
+            mountPath: /docker
+      volumes:
+      - name: web-root
+        hostPath:
+          path: /Users/moritake/go/src/github.com/mediba-moritake/sample-kubernetes
